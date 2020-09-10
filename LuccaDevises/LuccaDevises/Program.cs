@@ -60,6 +60,7 @@ namespace LuccaDevises
             //if the conversion exists into the file
             if(result != 0)
             {
+                result = decimal.Round(result, 2);
                 System.Console.WriteLine("Result is : {0} ", result);
             }
 
@@ -69,20 +70,58 @@ namespace LuccaDevises
             {
                string  intermediateCurrency ="";
                decimal intermediateresult = 0;
-               bool first = false;
+               bool first = true;
+               bool done = false;
                 //while the final result wasn't found
-                while (result.Equals(0))
+                while (done.Equals(false))
                 {
                     bool foundMatch = false;
                     foreach (var conversion in rates)
                     {
                         string[] infos = conversion.Split(";");
-                        if (infos[0].Equals(firstcurrency) && first.Equals(false))
+                        if ((infos[0].Equals(firstcurrency)) || (infos[1].Equals(firstcurrency)))
                         {
-                            intermediateCurrency = infos[1];
-                            intermediateresult = program.convertCurrencies(rates, firstcurrency, intermediateCurrency, amounttoconvert);
-                            first = true;
-                            foundMatch = true;
+                            if(first.Equals(true))
+                            {
+                                if(infos[0].Equals(firstcurrency))
+                                {
+                                    intermediateCurrency = infos[1];
+                                    intermediateresult = program.convertCurrencies(rates, firstcurrency, intermediateCurrency, amounttoconvert);
+                                }
+                                else
+                                {
+                                    intermediateCurrency = infos[0];
+                                    intermediateresult = program.convertCurrencies(rates, firstcurrency, intermediateCurrency, amounttoconvert);
+                                }
+                                
+                                
+                                first = false;
+                                foundMatch = true;
+                              /*  Console.WriteLine("info O = {0}, info 1 = {1}, firstcur = {2}, goal = {3} ", infos[0], infos[1], firstcurrency, goalcurrency);
+                                Console.ReadLine();*/
+                            }
+                        }
+                        else if((infos[0].Equals(goalcurrency)) || (infos[1].Equals(goalcurrency)))
+                        {
+                            if (first.Equals(true))
+                            {
+                                if (infos[0].Equals(goalcurrency))
+                                {
+                                    intermediateCurrency = infos[1];
+                                    intermediateresult = program.convertCurrencies(rates, intermediateCurrency, goalcurrency, amounttoconvert);
+                                }
+                                else
+                                {
+                                    intermediateCurrency = infos[0];
+                                    intermediateresult = program.convertCurrencies(rates, intermediateCurrency, goalcurrency, amounttoconvert);
+                                }
+
+
+                                first = false;
+                                foundMatch = true;
+                                /*  Console.WriteLine("info O = {0}, info 1 = {1}, firstcur = {2}, goal = {3} ", infos[0], infos[1], firstcurrency, goalcurrency);
+                                  Console.ReadLine();*/
+                            }
                         }
                         else if ((infos[0].Equals(intermediateCurrency)) || (infos[1].Equals(intermediateCurrency)))
                         {
@@ -90,8 +129,10 @@ namespace LuccaDevises
                             if((infos[1].Equals(goalcurrency)) || (infos[0].Equals(goalcurrency)))
                             {
                                 result = program.convertCurrencies(rates, intermediateCurrency, goalcurrency, intermediateresult);
-                                Console.WriteLine("The result is : {0} ", decimal.Round(result));
+                                result = decimal.Round(result, 2);
+                                Console.WriteLine("The result is : {0} ", result);
                                 foundMatch = true;
+                                done = true;
                             }
                             //another intermediate step 
                             else
@@ -111,7 +152,7 @@ namespace LuccaDevises
                             }
                         }
                     }
-                    if(foundMatch == false)
+                    if (foundMatch == false)
                     { Console.WriteLine("the system can't find any conversions for this currencies"); Environment.Exit(0); }
                 }
             }
@@ -139,7 +180,8 @@ namespace LuccaDevises
                     {
                         decimal rate = decimal.Parse(rateinfos[2], CultureInfo.InvariantCulture);
                         decimal result = amounttoconvert * rate;
-                        return decimal.Round(result);
+                       //return decimal.Round(result);
+                        return result;
                     }
                 }
             }
@@ -153,7 +195,8 @@ namespace LuccaDevises
                     {
                         decimal rate = decimal.Parse(rateinfos[2], CultureInfo.InvariantCulture);
                         decimal result = amounttoconvert * (1 / rate);
-                        return decimal.Round(result);
+                       // return decimal.Round(result);
+                        return result;
                     }
                 }
             }
