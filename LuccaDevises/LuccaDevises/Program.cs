@@ -46,7 +46,13 @@ namespace LuccaDevises
             string firstcurrency = goalspart[0];
             int amounttoconvert = int.Parse(goalspart[1]);
             string goalcurrency = goalspart[2];
-
+            
+            //if currencies are the same
+            if(goalspart[0] == goalspart[2])
+            {
+                Console.WriteLine("The result is : {0} ", goalspart[1]);
+                Environment.Exit(0);
+            }
             //try to convert the desired currencies
             Program program = new Program();
             decimal result = program.convertCurrencies(rates, firstcurrency, goalcurrency, amounttoconvert);
@@ -67,6 +73,7 @@ namespace LuccaDevises
                 //while the final result wasn't found
                 while (result.Equals(0))
                 {
+                    bool foundMatch = false;
                     foreach (var conversion in rates)
                     {
                         string[] infos = conversion.Split(";");
@@ -75,6 +82,7 @@ namespace LuccaDevises
                             intermediateCurrency = infos[1];
                             intermediateresult = program.convertCurrencies(rates, firstcurrency, intermediateCurrency, amounttoconvert);
                             first = true;
+                            foundMatch = true;
                         }
                         else if ((infos[0].Equals(intermediateCurrency)) || (infos[1].Equals(intermediateCurrency)))
                         {
@@ -83,6 +91,7 @@ namespace LuccaDevises
                             {
                                 result = program.convertCurrencies(rates, intermediateCurrency, goalcurrency, intermediateresult);
                                 Console.WriteLine("The result is : {0} ", decimal.Round(result));
+                                foundMatch = true;
                             }
                             //another intermediate step 
                             else
@@ -91,15 +100,19 @@ namespace LuccaDevises
                                 {
                                     intermediateresult = program.convertCurrencies(rates, intermediateCurrency, infos[0], intermediateresult);
                                     intermediateCurrency = infos[0];
+                                    foundMatch = true;
                                 }
                                 else 
                                 {
                                     intermediateresult = program.convertCurrencies(rates, intermediateCurrency, infos[1], intermediateresult);
                                     intermediateCurrency = infos[1];
+                                    foundMatch = true;
                                 }
                             }
                         }
                     }
+                    if(foundMatch == false)
+                    { Console.WriteLine("the system can't find any conversions for this currencies"); Environment.Exit(0); }
                 }
             }
 

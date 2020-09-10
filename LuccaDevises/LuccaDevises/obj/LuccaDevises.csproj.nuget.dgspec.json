@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ASUS\\source\\repos\\LuccaDevises\\LuccaDevises\\LuccaDevises.csproj": {}
+    "C:\\Users\\ASUS\\Documents\\LuccaDevises\\LuccaDevises\\LuccaDevises\\LuccaDevises.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ASUS\\source\\repos\\LuccaDevises\\LuccaDevises\\LuccaDevises.csproj": {
+    "C:\\Users\\ASUS\\Documents\\LuccaDevises\\LuccaDevises\\LuccaDevises\\LuccaDevises.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\source\\repos\\LuccaDevises\\LuccaDevises\\LuccaDevises.csproj",
+        "projectUniqueName": "C:\\Users\\ASUS\\Documents\\LuccaDevises\\LuccaDevises\\LuccaDevises\\LuccaDevises.csproj",
         "projectName": "LuccaDevises",
-        "projectPath": "C:\\Users\\ASUS\\source\\repos\\LuccaDevises\\LuccaDevises\\LuccaDevises.csproj",
+        "projectPath": "C:\\Users\\ASUS\\Documents\\LuccaDevises\\LuccaDevises\\LuccaDevises\\LuccaDevises.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\source\\repos\\LuccaDevises\\LuccaDevises\\obj\\",
+        "outputPath": "C:\\Users\\ASUS\\Documents\\LuccaDevises\\LuccaDevises\\LuccaDevises\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
