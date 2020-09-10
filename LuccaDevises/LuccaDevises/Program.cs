@@ -10,12 +10,13 @@ namespace LuccaDevises
         static void Main(string[] args)
         {
 
-           if (args.Length == 0)
+          /* if (args.Length == 0)
             {
                 Console.WriteLine("Please specify a file path");
                 Environment.Exit(-1);
-            }
-            string filepath = args[0];
+            }*/
+            // string filepath = args[0];
+            string filepath = "C:/toconvert.txt";
             int counter = 0;
             string line;
             string convertGoal = "";
@@ -60,7 +61,6 @@ namespace LuccaDevises
             //if the conversion exists into the file
             if(result != 0)
             {
-                result = decimal.Round(result, 2);
                 System.Console.WriteLine("Result is : {0} ", result);
             }
 
@@ -101,28 +101,6 @@ namespace LuccaDevises
                                 Console.ReadLine();*/
                             }
                         }
-                        else if((infos[0].Equals(goalcurrency)) || (infos[1].Equals(goalcurrency)))
-                        {
-                            if (first.Equals(true))
-                            {
-                                if (infos[0].Equals(goalcurrency))
-                                {
-                                    intermediateCurrency = infos[1];
-                                    intermediateresult = program.convertCurrencies(rates, intermediateCurrency, goalcurrency, amounttoconvert);
-                                }
-                                else
-                                {
-                                    intermediateCurrency = infos[0];
-                                    intermediateresult = program.convertCurrencies(rates, intermediateCurrency, goalcurrency, amounttoconvert);
-                                }
-
-
-                                first = false;
-                                foundMatch = true;
-                                /*  Console.WriteLine("info O = {0}, info 1 = {1}, firstcur = {2}, goal = {3} ", infos[0], infos[1], firstcurrency, goalcurrency);
-                                  Console.ReadLine();*/
-                            }
-                        }
                         else if ((infos[0].Equals(intermediateCurrency)) || (infos[1].Equals(intermediateCurrency)))
                         {
                           //final result
@@ -130,7 +108,7 @@ namespace LuccaDevises
                             {
                                 result = program.convertCurrencies(rates, intermediateCurrency, goalcurrency, intermediateresult);
                                 result = decimal.Round(result, 2);
-                                Console.WriteLine("The result is : {0} ", result);
+                                Console.WriteLine("The result is : {0} ", decimal.Round(result, 2));
                                 foundMatch = true;
                                 done = true;
                             }
@@ -180,7 +158,7 @@ namespace LuccaDevises
                     {
                         decimal rate = decimal.Parse(rateinfos[2], CultureInfo.InvariantCulture);
                         decimal result = amounttoconvert * rate;
-                       //return decimal.Round(result);
+                       // result = decimal.Round(result, 2);
                         return result;
                     }
                 }
@@ -189,14 +167,17 @@ namespace LuccaDevises
             for (int i = 0; i < rates.Count; i++)
             {
                 string[] rateinfos = rates[i].Split(";");
-                if (rateinfos[1].Equals(firstcurrency))
+                if(rateinfos.Length.Equals(3))
                 {
-                    if (rateinfos[0].Equals(goalcurrency))
+                    if (rateinfos[1].Equals(firstcurrency))
                     {
-                        decimal rate = decimal.Parse(rateinfos[2], CultureInfo.InvariantCulture);
-                        decimal result = amounttoconvert * (1 / rate);
-                       // return decimal.Round(result);
-                        return result;
+                        if (rateinfos[0].Equals(goalcurrency))
+                        {
+                            decimal rate = decimal.Parse(rateinfos[2], CultureInfo.InvariantCulture);
+                            decimal result = amounttoconvert * (1 / rate);
+                            // result = decimal.Round(result, 2);
+                            return result;
+                        }
                     }
                 }
             }
