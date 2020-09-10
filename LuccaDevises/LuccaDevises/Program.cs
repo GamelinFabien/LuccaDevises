@@ -10,13 +10,13 @@ namespace LuccaDevises
         static void Main(string[] args)
         {
 
-          /* if (args.Length == 0)
+           if (args.Length == 0)
             {
                 Console.WriteLine("Please specify a file path");
                 Environment.Exit(-1);
-            }*/
-            // string filepath = args[0];
-            string filepath = "C:/toconvert.txt";
+            }
+            string filepath = args[0];
+            //string filepath = "C:/toconvert.txt";
             int counter = 0;
             string line;
             string convertGoal = "";
@@ -61,6 +61,7 @@ namespace LuccaDevises
             //if the conversion exists into the file
             if(result != 0)
             {
+                result = decimal.Round(result, 2);
                 System.Console.WriteLine("Result is : {0} ", result);
             }
 
